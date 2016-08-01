@@ -14,8 +14,8 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 class User(Base, UserMixin):
-
     __tablename__ = "users"
+    
     id = Column(Integer, primary_key=True)
     first_name = Column(String(128))
     last_name = Column(String(128))
