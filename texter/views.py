@@ -5,7 +5,7 @@ from .database import session
 from flask import flash
 from flask.ext.login import login_user
 from werkzeug.security import check_password_hash
-from .database import User
+from .models import User
 from flask.ext.login import login_required
 from flask.ext.login import current_user
 
