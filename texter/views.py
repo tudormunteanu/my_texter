@@ -29,3 +29,12 @@ def login_post():
     login_user(user)
     #return redirect(request.args.get('next') or url_for("entries"))
     
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+    
+@app.route("/notification/new")
+def new_notification():
+    return render_template("new_notification.html")
+    
+    
