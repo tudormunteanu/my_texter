@@ -5,14 +5,13 @@ from .database import session
 from flask import flash
 from flask.ext.login import login_user
 from werkzeug.security import check_password_hash
-from .models import User
+from .database import User
 from flask.ext.login import login_required
 from flask.ext.login import current_user
 
 @app.route("/")
 def home():
     return render_template("base.html")
-    
     
 @app.route("/login", methods=["GET"])
 def login_get():
@@ -28,4 +27,5 @@ def login_post():
         return redirect(url_for("login_get"))
 
     login_user(user)
-    return redirect(request.args.get('next') or url_for("entries"))
+    #return redirect(request.args.get('next') or url_for("entries"))
+    

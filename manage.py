@@ -1,7 +1,7 @@
 import os
 from flask.ext.script import Manager
 
-from blog import app
+from texter import app
 
 manager = Manager(app)
 
