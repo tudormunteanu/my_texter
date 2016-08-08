@@ -36,5 +36,12 @@ def dashboard():
 @app.route("/notification/new")
 def new_notification():
     return render_template("new_notification.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
     
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
     
