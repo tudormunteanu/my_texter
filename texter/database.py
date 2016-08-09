@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from . import app
 from sqlalchemy import Column, Integer, String, Text, DateTime
 import datetime
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
