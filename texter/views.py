@@ -27,7 +27,7 @@ def login_post():
         return redirect(url_for("login_get"))
 
     login_user(user)
-    #return redirect(request.args.get('next') or url_for("entries"))
+    return redirect(request.args.get('next') or url_for("dashboard"))
     
 @app.route("/dashboard")
 def dashboard():
