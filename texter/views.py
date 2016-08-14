@@ -5,7 +5,7 @@ from .database import session
 from flask import flash
 from flask_login import login_user
 from werkzeug.security import check_password_hash
-from .database import User
+from .database import User, Notification
 from flask_login import login_required
 from flask_login import current_user
 
@@ -34,13 +34,33 @@ def login_post():
 @app.route("/dashboard")
 #@login_required
 def dashboard():
-    return render_template("dashboard.html")
+    notifications = session.query(Notification).all()
+    return render_template("dashboard.html",notifications=notifications)
     
 @app.route("/notification/new")
 #@login_required
 def new_notification():
     return render_template("new_notification.html")
-
+    
+@app.route("/notification/new", methods=["POST"])
+#@login_required
+def new_notification_post():
+    subject = request.form["subject"]
+    timezone = request.form["timezone"]
+    frequency = request.form["frequency"]
+    days = request.form["days"]
+    notification = Notification(
+        subject=subject,
+        timezone = timezone,
+        frequency=frequency,
+        days=days)
+    session.add(notification)
+    session.commit()
+    #call twilio function here
+    #enable or disable
+    return redirect(url_for("dashboard"))
+    
+    
 @app.route("/about")
 def about():
     return render_template("about.html")

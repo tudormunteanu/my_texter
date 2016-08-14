@@ -4,27 +4,49 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Type</th>
-                <select name="type">
-                    <option value="Water">Water</option>
-                </select>
+            <th>Subject</th>
             <th>Time Zone</th>
-                <select name="timezone">
-                    <option value="eastern">Eastern</option>
-                    <option value="central">Central</option>
-                    <option value="mountain">Mountain</option>
-                    <option value="pacific">Pacific</option>
-                </select>
             <th>Frequency</th>
+            <th>Days</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="5">Confirm</td>
-        </tr>
+        <form action="" method="post">
+            <tr>
+                <td>
+                    <select name="subject">
+                        <option value="water">Water</option>
+                    </select>
+                </td>    
+                <td>
+                    <select name="timezone">
+                        <option value="eastern">Eastern</option>
+                        <option value="central">Central</option>
+                        <option value="mountain">Mountain</option>
+                        <option value="pacific">Pacific</option>
+                    </select>
+                </td>    
+                <td>
+                    <select name="frequency">
+                        <option value="hourly">Every hour</option>
+                        <option value="2_hours">Every two hours</option>
+                    </select>
+                </td>    
+                <td>
+                    <select name="days">
+                        <option value="every_day">Every Day</option>
+                        <option value="weekdays_only">Weekday Days Only</option>
+                    </select>
+                </td>  
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <button type="submit" class="btn btn-success">
+                        Confirm
+                    </button>
+                </td>
+            </tr>
+        </form>
     </tbody>
 </table>
 {% endblock %}

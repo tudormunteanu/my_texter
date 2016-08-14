@@ -24,6 +24,16 @@ class User(Base, UserMixin):
     number = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
+class Notification(Base):
+    __tablename__ = "notifications"
+    
+    id = Column(Integer, primary_key=True)
+    subject = Column(String(128))
+    timezone = Column(String(128))
+    frequency = Column(String(128))
+    days = Column(String(128))
+    datetime_created = Column(DateTime, default=datetime.datetime.now)
+    
 
 #all classes before this line
 Base.metadata.create_all(engine)

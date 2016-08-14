@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
+
+
+
 <h1>Dashboard</h1>
 <div class="table-responsive">
     <table class="table">
@@ -13,8 +17,22 @@
             </tr>
         </thead>
         <tbody>
+            {% for notification in notifications %}
             <tr>
-                <td colspan="5">Add new notification</td>
+                <td>
+                    {{notification.subject}}
+                </td>
+                <td>
+                    {{notification.timezone}}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5">
+                    <a href="/notification/new" class="btn btn-success">
+                        Add new notification
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
