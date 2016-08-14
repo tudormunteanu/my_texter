@@ -32,12 +32,12 @@ def login_post():
     return redirect(request.args.get('next') or url_for("dashboard"))
 ############################################################################    
 @app.route("/dashboard")
-@login_required
+#@login_required
 def dashboard():
     return render_template("dashboard.html")
     
 @app.route("/notification/new")
-@login_required
+#@login_required
 def new_notification():
     return render_template("new_notification.html")
 

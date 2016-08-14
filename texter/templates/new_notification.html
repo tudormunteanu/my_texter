@@ -1,4 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-
+<H1>New Notification</H1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+                <select name="type">
+                    <option value="Water">Water</option>
+                </select>
+            <th>Time Zone</th>
+                <select name="timezone">
+                    <option value="eastern">Eastern</option>
+                    <option value="central">Central</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="pacific">Pacific</option>
+                </select>
+            <th>Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="5">Confirm</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
