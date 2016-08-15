@@ -32,6 +32,7 @@ class Notification(Base):
     timezone = Column(String(128))
     frequency = Column(String(128))
     days = Column(String(128))
+    status = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
 
