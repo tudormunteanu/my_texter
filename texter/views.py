@@ -51,11 +51,11 @@ def new_notification_post():
     days = request.form["days"]
     status = request.form["status"]
     notification = Notification(
-        subject=subject,
+        subject = subject,
         timezone = timezone,
-        frequency=frequency,
-        days=days,
-        status=status)
+        frequency = frequency,
+        days = days,
+        status = status)
     session.add(notification)
     session.commit()
     #call twilio function here
