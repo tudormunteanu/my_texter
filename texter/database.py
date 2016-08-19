@@ -1,12 +1,10 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from . import app
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 import datetime
 from flask_login import UserMixin
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
 
 engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 Base = declarative_base()
@@ -24,6 +22,8 @@ class User(Base, UserMixin):
     number = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
+    notifications = relationship("Notification", backref="users")
+    
 class Notification(Base):
     __tablename__ = "notifications"
     
@@ -35,6 +35,7 @@ class Notification(Base):
     status = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 
 #all classes before this line
 Base.metadata.create_all(engine)
