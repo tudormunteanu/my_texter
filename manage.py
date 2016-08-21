@@ -15,3 +15,35 @@ def run():
 
 if __name__ == "__main__":
     manager.run()
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def listen_for_tweets()
+    pass
+
+
+
+
+# inside def homepage():
+
+q = Queue(connection=Redis())
+result = q.enqueue(listen_for_tweets)
+tweets = session.query(Tweet).all()
+return render_template("homepage.html")
+

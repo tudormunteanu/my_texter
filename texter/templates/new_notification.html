@@ -5,26 +5,35 @@
     <thead>
         <tr>
             <th>Type</th>
+            <th>Time Zone</th>
+            <th>Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        <form method="post">
+        <tr>
+            <td>
                 <select name="type">
                     <option value="Water">Water</option>
                 </select>
-            <th>Time Zone</th>
+            </td>
+            <td>
                 <select name="timezone">
                     <option value="eastern">Eastern</option>
                     <option value="central">Central</option>
                     <option value="mountain">Mountain</option>
                     <option value="pacific">Pacific</option>
                 </select>
-            <th>Frequency</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
+            </td>
         </tr>
         <tr>
-            <td colspan="5">Confirm</td>
+            <td colspan="5">
+              <button type="submit" class="btn btn-success">
+                  Confirm
+              </button>
+            <td>
         </tr>
+        </form>
     </tbody>
 </table>
 {% endblock %}
