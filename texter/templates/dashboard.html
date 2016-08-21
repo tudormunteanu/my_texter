@@ -5,16 +5,39 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Number</th>
-                <th>Notification</th>
-                <th>Created At</th>
+                <th>Subject</th>
+                <th>Timezone</th>
                 <th>Frequency</th>
+                <th>Days</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
+            {% for notification in notifications %}
             <tr>
-                <td colspan="5">Add new notification</td>
+                <td>
+                    {{notification.subject}}
+                </td>
+                <td>
+                    {{notification.timezone}}
+                </td>
+                <td>
+                    {{notification.frequency}}
+                </td>
+                <td>
+                    {{notification.days}}
+                </td>
+                <td>
+                    {{notification.status}}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5">
+                    <a href="/notification/new" class="btn btn-success">
+                        Add new notification
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
