@@ -50,12 +50,14 @@ def new_notification_post():
     frequency = request.form["frequency"]
     days = request.form["days"]
     status = request.form["status"]
+    user = session.query(User).first()
     notification = Notification(
         subject = subject,
         timezone = timezone,
         frequency = frequency,
         days = days,
-        status = status)
+        status = status,
+        user = user)
     session.add(notification)
     session.commit()
     #call twilio function here

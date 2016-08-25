@@ -22,7 +22,7 @@ class User(Base, UserMixin):
     number = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
-    notifications = relationship("Notification", backref="users")
+    notifications = relationship("Notification", backref="user")
     
 class Notification(Base):
     __tablename__ = "notifications"
@@ -35,7 +35,7 @@ class Notification(Base):
     status = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
 
 #all classes before this line
 Base.metadata.create_all(engine)
