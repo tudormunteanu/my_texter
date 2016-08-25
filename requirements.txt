@@ -7,3 +7,4 @@ mistune
 psycopg2
 splinter
 twilio
+gunicorn
