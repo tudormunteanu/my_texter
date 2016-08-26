@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from . import app
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 import datetime
-from flask_login import UserMixin
+from flask.ext.login import UserMixin
 
 engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 Base = declarative_base()

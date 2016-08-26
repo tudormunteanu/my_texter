@@ -3,11 +3,11 @@ from flask import request, redirect, url_for
 from . import app
 from .database import session
 from flask import flash
-from flask_login import login_user
+from flask.ext.login import login_user
 from werkzeug.security import check_password_hash
 from .database import User, Notification
-from flask_login import login_required
-from flask_login import current_user
+from flask.ext.login import login_required
+from flask.ext.login import current_user
 
 @app.route("/")
 def home():
@@ -17,9 +17,7 @@ def home():
 def login_get():
     return render_template("login.html")
 
-############################################################################
 @app.route("/login", methods=["POST"])
-@login_required
 def login_post():
     email = request.form["email"]
     password = request.form["password"]
@@ -30,9 +28,9 @@ def login_post():
 
     login_user(user)
     return redirect(request.args.get('next') or url_for("dashboard"))
-############################################################################    
+  
 @app.route("/dashboard")
-#@login_required
+@login_required
 def dashboard():
     notifications = session.query(Notification).all()
     return render_template("dashboard.html",notifications=notifications)
