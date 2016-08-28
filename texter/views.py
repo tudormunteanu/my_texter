@@ -36,12 +36,12 @@ def dashboard():
     return render_template("dashboard.html",notifications=notifications)
     
 @app.route("/notification/new")
-#@login_required
+@login_required
 def new_notification():
     return render_template("new_notification.html")
     
 @app.route("/notification/new", methods=["POST"])
-#@login_required
+@login_required
 def new_notification_post():
     subject = request.form["subject"]
     timezone = request.form["timezone"]
@@ -71,3 +71,9 @@ def about():
 def contact():
     return render_template("contact.html")
     
+@app.route("/notification/<id>/edit")
+@login_required
+def edit_notification(id):
+    notification = session.query(Notification)
+    notification = notification.get(id)
+    return render_template("edit_notification.html", notification = notification)
