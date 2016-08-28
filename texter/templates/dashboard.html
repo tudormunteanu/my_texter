@@ -10,6 +10,7 @@
                 <th>Frequency</th>
                 <th>Days</th>
                 <th>Status</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,9 @@
                 </td>
                 <td>
                     {{notification.status}}
+                </td>
+                <td>
+                    <a href="/notification/{{notification.id}}/edit">Edit</a>
                 </td>
             </tr>
             {% endfor %}

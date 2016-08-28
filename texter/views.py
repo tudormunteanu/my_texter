@@ -77,3 +77,17 @@ def edit_notification(id):
     notification = session.query(Notification)
     notification = notification.get(id)
     return render_template("edit_notification.html", notification = notification)
+    #left side, notif variable on html file. right side, notif of query
+
+@app.route("/notification/<id>/edit", methods=["POST"])
+@login_required
+def edit_notification_post(id):
+    notification = session.query(Notification)
+    notification = notification.get(id)
+    notification.subject = request.form["subject"]
+    notification.timezone = request.form["timezone"]
+    notification.frequency = request.form["frequency"]
+    notification.days = request.form["days"]
+    notification.status = request.form["status"]
+    session.commit()
+    return redirect(url_for("dashboard"))

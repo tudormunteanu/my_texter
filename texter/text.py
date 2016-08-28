@@ -8,7 +8,7 @@ from key import account_sid, auth_token, twilio_number
 client = TwilioRestClient(account_sid, auth_token)
 
 #set current date and time into variable
-d = datetime.datetime.now() 
+
 
 #List that holds the messages that are texted
 text = ['Hello. This is your reminder to drink water. Thank you.',
@@ -46,3 +46,26 @@ def send_text():
     		print 'Not in time range'
     else:
     	print 'Not weekday'
+
+def sent_text(notification):
+	d = datetime.datetime.now()
+	if notification.days == "every_day":
+		if notification.frequency == "every_hour":
+			#send message to twilio
+			pass
+		elif notification.frequency == "every_two_hours":
+			if d.hour % 2 == 0:
+				#send message to twilio
+				pass
+	elif notification.days == "weekdays_only":
+		if d.isoweekday() in range(1, 6):
+			if notification.frequency == "every_hour":
+				#send message to twilio
+				pass
+			elif notification.frequency == "every_two_hours":
+				if d.hour % 2 == 0:
+					#send message to twilio
+					pass
+		
+	
+	
