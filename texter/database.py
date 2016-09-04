@@ -22,7 +22,7 @@ class User(Base, UserMixin):
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
     notifications = relationship("Notification", backref="user")
-    #contacts = relationship("Contact", backref="user")
+    contacts = relationship("Contact", backref="user")
     
 class Notification(Base):
     __tablename__ = "notifications"
@@ -37,13 +37,15 @@ class Notification(Base):
     
     user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
 
-# class Contact(Base):
-#     __tablename__ = "contacts"
+class Contact(Base):
+    __tablename__ = "contacts"
     
-#     id = Column(Integer, primary_key=True)
-#     number = Column(String(128))
-#     datetime_created = Column(DateTime, default=datetime.datetime.now)
-#     user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+    id = Column(Integer, primary_key=True)
+    number1 = Column(String(128))
+    number2 = Column(String(128))
+    datetime_created = Column(DateTime, default=datetime.datetime.now)
+
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
 
 #all classes before this line
 Base.metadata.create_all(engine)

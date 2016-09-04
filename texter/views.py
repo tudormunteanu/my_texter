@@ -5,7 +5,7 @@ from .database import session
 from flask import flash
 from flask.ext.login import login_user
 from werkzeug.security import check_password_hash
-from .database import User, Notification
+from .database import User, Notification, Contact
 from flask.ext.login import login_required
 from flask.ext.login import current_user
 
@@ -33,7 +33,8 @@ def login_post():
 @login_required
 def dashboard():
     notifications = session.query(Notification).all()
-    return render_template("dashboard.html",notifications=notifications)
+    contacts = session.query(Contact).all()
+    return render_template("dashboard.html",notifications=notifications, contacts=contacts)
     
 @app.route("/notification/new")
 @login_required
@@ -62,14 +63,9 @@ def new_notification_post():
     #enable or disable
     return redirect(url_for("dashboard"))
     
-    
 @app.route("/about")
 def about():
     return render_template("about.html")
-    
-@app.route("/contacts")
-def contact():
-    return render_template("contacts.html")
     
 @app.route("/notification/<id>/edit")
 @login_required
@@ -91,3 +87,23 @@ def edit_notification_post(id):
     notification.status = request.form["status"]
     session.commit()
     return redirect(url_for("dashboard"))
+
+@app.route("/contacts")
+@login_required
+def contacts():
+    return render_template("contacts.html")
+
+@app.route("/contacts", methods=["POST"])
+@login_required
+def contacts_post():
+    number1 = request.form["number1"]
+    number2 = request.form["number2"]
+    user = session.query(User).first()
+    contacts = Contact(
+        number1 = number1,
+        number2 = number2,
+        user = user)
+    session.add(contacts)    
+    session.commit()
+    return redirect(url_for("dashboard"))
+
