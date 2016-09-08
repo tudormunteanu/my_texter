@@ -8,3 +8,4 @@ psycopg2
 splinter
 twilio
 gunicorn
+APScheduler==3.0.0
