@@ -4,7 +4,7 @@ from . import app
 from .database import session
 from flask import flash
 from flask.ext.login import login_user
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from .database import User, Notification, Contact
 from flask.ext.login import login_required
 from flask.ext.login import current_user
@@ -28,7 +28,30 @@ def login_post():
 
     login_user(user)
     return redirect(request.args.get('next') or url_for("dashboard"))
-  
+
+@app.route("/register", methods=["GET"])
+def register_get():
+    return render_template("register.html")
+    
+@app.route("/register", methods=["POST"])
+def register_post():
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
+    email = request.form["email"]
+    password = request.form["password"]
+    
+    if session.query(User).filter_by(email=email).first():
+        flash("User with that email address already exists", "danger")
+        return redirect(url_for("register_post"))
+    if len(password) < 8:
+        flash("Password needs to be at least 8 characters")
+        return redirect(url_for("register_post"))
+    user = User(first_name=first_name, last_name=last_name,email=email,
+                password=generate_password_hash(password))
+    session.add(user)
+    session.commit()
+    return redirect(url_for("dashboard"))
+    
 @app.route("/dashboard")
 @login_required
 def dashboard():
