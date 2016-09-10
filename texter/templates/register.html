@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+      {% with msgs = get_flashed_messages() %}
+        {% if msgs %}
+          {%- for msg in msgs %}
+            <div class="alert alert-info">
+              {{ msg }}
+            </div>
+          {% endfor -%}
+        {% endif %}
+      {% endwith %}
 {% block content %}
 <h1>Register</h1>
 <div class="row">

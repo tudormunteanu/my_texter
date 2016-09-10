@@ -44,18 +44,18 @@ def register_post():
         flash("User with that email address already exists", "danger")
         return redirect(url_for("register_post"))
     if len(password) < 8:
-        flash("Password needs to be at least 8 characters")
+        flash("Password needs to be at least 8 characters", "danger")
         return redirect(url_for("register_post"))
     user = User(first_name=first_name, last_name=last_name,email=email,
                 password=generate_password_hash(password))
     session.add(user)
     session.commit()
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("home"))
     
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    notifications = session.query(Notification).all()
+    notifications = session.query(Notification).filter_by(user_id=user_id).all()
     contacts = session.query(Contact).all()
     return render_template("dashboard.html",notifications=notifications, contacts=contacts)
     
