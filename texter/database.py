@@ -35,7 +35,7 @@ class Notification(Base):
     status = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
     
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
 
 class Contact(Base):
     __tablename__ = "contacts"
@@ -45,7 +45,7 @@ class Contact(Base):
     number2 = Column(String(128))
     datetime_created = Column(DateTime, default=datetime.datetime.now)
 
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
 
 #all classes before this line
 Base.metadata.create_all(engine)

@@ -3,15 +3,18 @@ from flask import request, redirect, url_for
 from . import app
 from .database import session
 from flask import flash
-from flask.ext.login import login_user
+from flask.ext.login import login_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from .database import User, Notification, Contact
-from flask.ext.login import login_required
-from flask.ext.login import current_user
+
 
 @app.route("/")
 def home():
     return render_template("base.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
     
 @app.route("/login", methods=["GET"])
 def login_get():
@@ -55,8 +58,8 @@ def register_post():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    notifications = session.query(Notification).filter_by(user_id=user_id).all()
-    contacts = session.query(Contact).all()
+    notifications = current_user.notifications
+    contacts = current_user.contacts
     return render_template("dashboard.html",notifications=notifications, contacts=contacts)
     
 @app.route("/notification/new")
@@ -72,7 +75,7 @@ def new_notification_post():
     frequency = request.form["frequency"]
     days = request.form["days"]
     status = request.form["status"]
-    user = session.query(User).first()
+    user = current_user
     notification = Notification(
         subject = subject,
         timezone = timezone,
@@ -85,10 +88,6 @@ def new_notification_post():
     #call twilio function here
     #enable or disable
     return redirect(url_for("dashboard"))
-    
-@app.route("/about")
-def about():
-    return render_template("about.html")
     
 @app.route("/notification/<id>/edit")
 @login_required
@@ -121,7 +120,7 @@ def contacts():
 def contacts_post():
     number1 = request.form["number1"]
     number2 = request.form["number2"]
-    user = session.query(User).first()
+    user = current_user
     contacts = Contact(
         number1 = number1,
         number2 = number2,
