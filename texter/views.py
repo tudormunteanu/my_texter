@@ -3,7 +3,7 @@ from flask import request, redirect, url_for
 from . import app
 from .database import session
 from flask import flash
-from flask.ext.login import login_user, current_user, login_required
+from flask.ext.login import login_user, current_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from .database import User, Notification, Contact
 
@@ -129,3 +129,8 @@ def contacts_post():
     session.commit()
     return redirect(url_for("dashboard"))
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
