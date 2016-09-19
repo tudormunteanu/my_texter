@@ -8,7 +8,7 @@ from key import account_sid, auth_token, twilio_number
 client = TwilioRestClient(account_sid, auth_token)
 
 #set current date and time into variable
-d = datetime.datetime.now() 
+
 
 #List that holds the messages that are texted
 text = ['Hello. This is your reminder to drink water. Thank you.',
@@ -32,17 +32,41 @@ text = ['Hello. This is your reminder to drink water. Thank you.',
 contacts = {
 			}
 			
-def send_text():
-    if d.isoweekday() in range(1, 6): #checks for Monday - Friday
-    	if d.hour in range(10, 18): #checks for 10am - 5pm
-    		for name, number in contacts.items(): #create tuple from contacts dictionary
-    			message = client.messages.create( 
-    	    		body=random.choice(text), #randomly select a message from the text list
-    	    		to=number,   #loop through tuple phone numbers
-    	    		from_= twilio_number) # Replace with your Twilio number
-    			time.sleep(2)
-    			print message.sid
-    	else:
-    		print 'Not in time range'
-    else:
-    	print 'Not weekday'
+# def send_text():
+#     if d.isoweekday() in range(1, 6): #checks for Monday - Friday
+#     	if d.hour in range(10, 18): #checks for 10am - 5pm
+#     		for name, number in contacts.items(): #create tuple from contacts dictionary
+#     			message = client.messages.create( 
+#     	    		body=random.choice(text), #randomly select a message from the text list
+#     	    		to=number,   #loop through tuple phone numbers
+#     	    		from_= twilio_number) # Replace with your Twilio number
+#     			time.sleep(2)
+#     			print message.sid
+#     	else:
+#     		print 'Not in time range'
+#     else:
+#     	print 'Not weekday'
+
+def sent_text(notification):
+	d = datetime.datetime.now()
+	if d.hour in range(10, 19):
+		if notification.days == "every_day":
+			if notification.frequency == "every_hour":
+				#send message to twilio
+				pass
+			elif notification.frequency == "every_two_hours":
+				if d.hour % 2 == 0:
+					#send message to twilio
+					pass
+		elif notification.days == "weekdays_only":
+			if d.isoweekday() in range(1, 6):
+				if notification.frequency == "every_hour":
+					#send message to twilio
+					pass
+				elif notification.frequency == "every_two_hours":
+					if d.hour % 2 == 0:
+						#send message to twilio
+						pass
+		
+	
+	
