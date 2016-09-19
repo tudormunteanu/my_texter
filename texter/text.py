@@ -47,26 +47,41 @@ contacts = {
 #     else:
 #     	print 'Not weekday'
 
-def sent_text(notification):
-	d = datetime.datetime.now()
-	if d.hour in range(10, 19):
-		if notification.days == "every_day":
+def get_tz_class(timezone):
+	if timezone == "eastern":
+		Eastern  = USTimeZone(-5, "Eastern",  "EST", "EDT")
+		return Eastern
+	elif timezone == "western":
+		pass
+	
+def send_to_twilio(notification):
+	
+	# number = notification.user.contacts[0]
+	contact = notification.user.contacts.first()
+	number = contact.number1
+	client.messages.create(body = random.choice(text),
+    	    		to = number, 
+    	    		from_ = twilio_number)
+	
+def send_text(notification):
+	actual_timezone = get_tz_class(notification.timezone)
+	d = datetime.datetime.now(actual_timezone)
+	
+	if d.hour not in range(10, 19):
+		
+		return
+	
+	if notification.days == "every_day":
+		if notification.frequency == "every_hour":
+			sent_to_twilio(notification)
+		elif notification.frequency == "every_two_hours":
+			if d.hour % 2 == 0:
+				sent_to_twilio(notification)
+	elif notification.days == "weekdays_only":
+		if d.isoweekday() in range(1, 6):
 			if notification.frequency == "every_hour":
-				#send message to twilio
-				pass
+				sent_to_twilio(notification)
 			elif notification.frequency == "every_two_hours":
 				if d.hour % 2 == 0:
-					#send message to twilio
-					pass
-		elif notification.days == "weekdays_only":
-			if d.isoweekday() in range(1, 6):
-				if notification.frequency == "every_hour":
-					#send message to twilio
-					pass
-				elif notification.frequency == "every_two_hours":
-					if d.hour % 2 == 0:
-						#send message to twilio
-						pass
+					sent_to_twilio(notification)
 		
-	
-	

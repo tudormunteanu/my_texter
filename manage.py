@@ -5,6 +5,8 @@ from getpass import getpass
 from werkzeug.security import generate_password_hash
 from flask.ext.migrate import Migrate, MigrateCommand
 from texter.database import Base
+from texter.text import send_text
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 manager = Manager(app)
 
@@ -12,6 +14,19 @@ manager = Manager(app)
 def run():
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
+    
+@manager.command
+def schedule_task():
+    
+    sched = BlockingScheduler()
+    @sched.scheduled_job('interval', hours=1)
+    def timed_job():
+        print('This job is run every three minutes.')
+        notifications = session.query(Notification).all()
+        for n in notifications:
+        
+            send_text(n)
+    sched.start()
     
 class DB(object):
     def __init__(self, metadata):
